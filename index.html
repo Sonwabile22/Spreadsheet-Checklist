@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spreadsheet Escape Checklist | AscendFlow Solutions</title>
+<style>
+:root{--bg:#f1f5f2;--card:#fff;--ink:#14211b;--mute:#5b6b63;--grid:#d3ddd7;--g:#1d6b4e;--gl:#e3f0ea;--amber:#b87a0b;--red:#b3392b;--r:3px}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1713;--card:#17221c;--ink:#e8f0eb;--mute:#9bafa4;--grid:#2c3b33;--g:#4fc08f;--gl:#1d3329;--amber:#e3a63a;--red:#ee7b6c}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+header{border:1px solid var(--grid);background:var(--card);border-radius:var(--r);overflow:hidden}
+.brand{display:flex;justify-content:space-between;gap:12px;padding:10px 16px;background:var(--g);color:#fff;font-size:14px;font-weight:600}
+.brand span:last-child{font-weight:400;opacity:.9}
+.hero{padding:22px 16px 18px}
+h1{font-size:clamp(28px,6vw,42px);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em}
+.hero p{margin:0;color:var(--mute);max-width:60ch}
+.meta{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--grid)}
+.meta label{display:block;padding:8px 16px;font-size:13px;color:var(--mute)}
+.meta label+label{border-left:1px solid var(--grid)}
+.meta input{display:block;width:100%;margin-top:2px;border:0;border-bottom:1px solid var(--grid);background:transparent;color:var(--ink);font:inherit;padding:4px 0}
+.meta input:focus{outline:2px solid var(--g);outline-offset:2px}
+.how{margin:14px 0;color:var(--mute);font-size:15px}
+.sec{margin-top:18px;border:1px solid var(--grid);background:var(--card);border-radius:var(--r)}
+.sec h2{margin:0;padding:10px 16px;font-size:17px;background:var(--gl);border-bottom:1px solid var(--grid);display:flex;justify-content:space-between;align-items:center}
+.sec h2 small{font-weight:400;color:var(--mute);font-size:13px}
+.row{display:grid;grid-template-columns:44px 1fr;border-bottom:1px solid var(--grid);cursor:pointer}
+.row:last-child{border-bottom:0}
+.row .box{display:grid;place-items:center;border-right:1px solid var(--grid);background:var(--bg)}
+.row input{width:22px;height:22px;accent-color:var(--red);cursor:pointer}
+.row .txt{padding:11px 14px}
+.row .txt b{font-weight:600}
+.row .txt span{display:block;color:var(--mute);font-size:14px}
+.row:hover{background:var(--gl)}
+.row:has(input:checked){background:color-mix(in srgb,var(--red) 9%,var(--card))}
+.row:focus-within{outline:2px solid var(--g);outline-offset:-2px}
+#result{margin-top:26px;border:2px solid var(--g);background:var(--card);border-radius:var(--r);overflow:hidden}
+.fx{display:flex;gap:10px;align-items:center;padding:6px 14px;background:var(--gl);border-bottom:1px solid var(--grid);font:13px ui-monospace,Menlo,Consolas,monospace;color:var(--mute);overflow-x:auto;white-space:nowrap}
+.fx i{font-style:italic;color:var(--g);font-weight:700}
+.score{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 16px;align-items:center}
+.cell{min-width:132px;border:2px solid var(--g);padding:8px 14px;text-align:center}
+.cell strong{display:block;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
+.cell small{color:var(--mute)}
+.band{font-size:20px;font-weight:700;margin:0 0 4px}
+.sum{margin:0;color:var(--mute)}
+.bars{padding:0 16px 8px}
+.bar{display:grid;grid-template-columns:130px 1fr 44px;gap:10px;align-items:center;font-size:14px;margin:6px 0}
+.bar div{height:12px;background:var(--bg);border:1px solid var(--grid)}
+.bar div i{display:block;height:100%;background:var(--amber);transition:width .3s}
+.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.fix{padding:6px 16px 18px}
+.fix h3{margin:16px 0 8px;font-size:17px}
+.fix ol{margin:0;padding:0;list-style:none}
+.fix li{border:1px solid var(--grid);border-left:5px solid var(--amber);padding:9px 12px;margin-bottom:8px;break-inside:avoid}
+.fix li.hi{border-left-color:var(--red)}
+.fix li b{display:block}
+.fix li span{color:var(--mute);font-size:14.5px}
+.empty{color:var(--mute);padding:6px 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;padding:16px;border-top:1px solid var(--grid);background:var(--bg)}
+button,.btn{font:inherit;font-weight:600;padding:11px 18px;border-radius:var(--r);border:2px solid var(--g);cursor:pointer;text-decoration:none;display:inline-block;color:var(--g);background:var(--card)}
+.wa{background:#1fa855;border-color:#1fa855;color:#fff}
+button:hover,.btn:hover{filter:brightness(.94)}
+button:focus-visible,.btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.cta{margin:0;padding:14px 16px;border-top:1px solid var(--grid);font-size:15px}
+.foot{margin-top:18px;font-size:13px;color:var(--mute);text-align:center}
+@media (max-width:560px){.score{grid-template-columns:1fr}.bar{grid-template-columns:100px 1fr 40px}.meta{grid-template-columns:1fr}.meta label+label{border-left:0;border-top:1px solid var(--grid)}}
+@media print{
+ :root{--bg:#fff;--card:#fff;--ink:#14211b;--mute:#4a5a52;--grid:#c8d3cc;--g:#1d6b4e;--gl:#e3f0ea;--amber:#b87a0b;--red:#b3392b}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .actions,.how{display:none}
+ .cta{border-top:1px solid var(--grid)}
+ .wrap{padding:0}.sec,.fix li,#result{break-inside:avoid}
+ .row{cursor:default}.row:hover{background:none}
+ .meta input{border-bottom:1px solid #999}
+ @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="brand"><span>AscendFlow Solutions</span><span>Free checklist</span></div>
+ <div class="hero">
+  <h1>The Spreadsheet Escape Checklist</h1>
+  <p>Tick everything that’s true for your business today. You’ll get a risk score and a short list of what to move out of your spreadsheets first.</p>
+ </div>
+ <div class="meta">
+  <label>Business name<input id="biz" type="text" placeholder="e.g. Glow Studio" autocomplete="organization"></label>
+  <label>Your name<input id="who" type="text" placeholder="e.g. Thandi" autocomplete="name"></label>
+ </div>
+</header>
+<p class="how">Tick a box when the statement is <b>true</b> for you. Be honest, no one else sees this.</p>
+<main id="list"></main>
+
+<section id="result" aria-live="polite">
+ <div class="score">
+  <div class="cell"><strong id="num">0</strong><small>spreadsheet risk / 100</small></div>
+  <div><p class="band" id="band"></p><p class="sum" id="sum"></p></div>
+ </div>
+ <div class="bars" id="bars"></div>
+ <div class="fix" id="fix"></div>
+ <div class="actions">
+  <button id="pdf" type="button">Download PDF</button>
+  <a class="btn wa" id="wa" href="#" target="_blank" rel="noopener">WhatsApp us for an in-depth analysis</a>
+ </div>
+ <p class="cta">Want a deeper look? This checklist shows where the risks are. For a more in-depth analysis of your spreadsheets and what to move first, WhatsApp us and we’ll go through it with you.</p>
+</section>
+<p class="foot">AscendFlow Solutions · Clients, jobs and payments in one system built around how you work.</p>
+</div>
+
+<script>
+// ===== EDIT THIS: WhatsApp number in international format, digits only (e.g. 27821234567). Leave "" to let people pick a contact. =====
+var WA_NUMBER = "27788747253";
+
+var SECTIONS = [
+ {n:"Clients", items:[
+  ["Client details live in more than one file or tab.",2,"Keep one client record and link everything else to it. Start here: it’s the base for everything else."],
+  ["Only one or two people know how to update the client list properly.",3,"Document the update steps this week, then move clients into a system anyone on the team can use without training on formulas."],
+  ["Past visits, notes or preferences take a while to find.",1,"Store history against each client so staff see it the moment they open the profile."]]},
+ {n:"Orders & jobs", items:[
+  ["Orders or jobs are copied by hand from one sheet to another.",3,"Entering the same job twice is where mismatches start. Capture each job once and let it flow to payments."],
+  ["You’ve had a double booking or missed appointment.",3,"Move bookings out of the sheet first. Live availability stops clashes before they happen."],
+  ["A formula has been overwritten or broken without anyone noticing.",3,"Replace fragile formulas with locked rules the system applies for you."],
+  ["You have files named things like “final_v3_NEW”.",2,"One live source of truth means no more guessing which version is right."]]},
+ {n:"Payments", items:[
+  ["Invoices are made by retyping numbers from a spreadsheet.",3,"Generate invoices straight from the job record so the amount can’t be mistyped."],
+  ["Chasing unpaid clients means checking several tabs.",2,"Track paid, part-paid and overdue in one view, with reminders going out automatically."],
+  ["Month-end takes half a day or more to reconcile.",2,"When jobs and payments live together, reconciling becomes a report, not a project."]]},
+ {n:"People & risk", items:[
+  ["If the person who built the sheet were off for a week, things would stall.",3,"This is the biggest risk on the list. Reduce dependence on one person before anything else."],
+  ["Several people edit the same file and overwrite each other.",2,"Give each person their own login and a record of who changed what."],
+  ["The only backup is someone’s laptop or a shared drive folder.",2,"Move to a system with automatic backups so one bad day can’t wipe out your records."],
+  ["You can’t limit staff to only what they need to see (e.g. reception seeing payments).",1,"Set roles so each person sees only what their job needs."]]},
+ {n:"Growth", items:[
+  ["You avoid adding services, staff or a second location because the sheet would get harder.",2,"If your tools hold back growth, they’re costing you more than they save."],
+  ["You can’t say what a client or service earned last month in under five minutes.",2,"Build the reports you check most into the system so the answer is one click away."]]}
+];
+
+var items=[], list=document.getElementById('list');
+SECTIONS.forEach(function(s,si){
+  var sec=document.createElement('section'); sec.className='sec';
+  var h=document.createElement('h2'); h.innerHTML=s.n+' <small id="c'+si+'"></small>'; sec.appendChild(h);
+  s.items.forEach(function(it){
+    var id=items.length, o={id:id,sec:si,t:it[0],w:it[1],f:it[2],on:false}; items.push(o);
+    var l=document.createElement('label'); l.className='row';
+    l.innerHTML='<span class="box"><input type="checkbox" data-i="'+id+'"></span><span class="txt">'+it[0]+'</span>';
+    sec.appendChild(l);
+  });
+  list.appendChild(sec);
+});
+
+var MAX=items.reduce(function(a,b){return a+b.w},0), $=function(i){return document.getElementById(i)};
+function band(p){
+  if(p<25) return ["Healthy","You’re in good shape. Keep an eye on the few ticked items before they grow."];
+  if(p<50) return ["Watch closely","Your spreadsheets work today, but a few weak spots could cost you a client or an invoice."];
+  if(p<75) return ["At risk","Your business depends on workarounds. Fix the top items below before something slips through."];
+  return ["Critical","One bad entry or one absence could stop you. Moving your highest-risk items out of spreadsheets should be your next project."];
+}
+function calc(){
+  var on=items.filter(function(i){return i.on}), pts=on.reduce(function(a,b){return a+b.w},0), p=Math.round(pts/MAX*100), b=band(p);
+  $('num').textContent=p; $('band').textContent=b[0]; $('sum').textContent=b[1];
+  $('num').style.color=p<25?'var(--g)':p<50?'var(--amber)':'var(--red)';
+  var bars='';
+  SECTIONS.forEach(function(s,si){
+    var m=0,g=0; items.forEach(function(i){if(i.sec===si){m+=i.w; if(i.on) g+=i.w}});
+    var sp=Math.round(g/m*100); $('c'+si).textContent=items.filter(function(i){return i.sec===si&&i.on}).length+' of '+s.items.length+' ticked';
+    bars+='<div class="bar"><span>'+s.n+'</span><div><i style="width:'+sp+'%"></i></div><span>'+sp+'%</span></div>';
+  });
+  $('bars').innerHTML=bars;
+  var sorted=on.slice().sort(function(a,b){return b.w-a.w||a.id-b.id}), html='';
+  if(!sorted.length){html='<h3>What to fix</h3><p class="empty">Nothing ticked yet. Tick the statements that are true for you and your fix list appears here.</p>';}
+  else{
+    html='<h3>What to fix first</h3><ol>';
+    sorted.forEach(function(i,k){ html+='<li class="'+(k<3?'hi':'')+'"><b>'+(k<3?'Priority: ':'')+i.t+'</b><span>'+i.f+'</span></li>'; if(k===2&&sorted.length>3) html+='</ol><h3>Then tackle</h3><ol>'; });
+    html+='</ol>';
+  }
+  $('fix').innerHTML=html;
+  var name=$('who').value.trim(), biz=$('biz').value.trim();
+  var msg='Hi AscendFlow, '+(name?'I’m '+name+(biz?' from '+biz:'')+'. ':'')+'I completed the Spreadsheet Escape Checklist and scored '+p+'/100 ('+b[0]+').'+
+    (sorted.length?' My top issues: '+sorted.slice(0,3).map(function(i){return i.t.replace(/\.$/,'')}).join('; ')+'.':'')+' I’d like an in-depth analysis of my spreadsheets.';
+  $('wa').href='https://wa.me/'+WA_NUMBER.replace(/\D/g,'')+'?text='+encodeURIComponent(msg);
+}
+list.addEventListener('change',function(e){ if(e.target.dataset.i!==undefined){items[e.target.dataset.i].on=e.target.checked; calc();} });
+$('biz').addEventListener('input',calc); $('who').addEventListener('input',calc);
+function makePDF(){
+  var W=595,H=842,M=48,CW=W-2*M,pages=[],cur,y,G='#1d6b4e',INK='#14211b',MUTE='#5b6b63';
+  var cv=document.createElement('canvas').getContext('2d');
+  var on=items.filter(function(i){return i.on}), pts=on.reduce(function(a,b){return a+b.w},0), p=Math.round(pts/MAX*100), bd=band(p);
+  var sorted=on.slice().sort(function(a,b){return b.w-a.w||a.id-b.id});
+  function esc(t){t=t.replace(/[\\()]/g,'\\$&');
+    var m={'’':'\\222','‘':'\\221','“':'\\223','”':'\\224','–':'\\226','—':'\\227','·':'\\267','→':'->'};
+    t=t.replace(/[’‘“”–—·→]/g,function(c){return m[c]});return t.replace(/[^\x00-\xff]/g,'?')}
+  function wid(t,s,b){cv.font=(b?'bold ':'')+s+'px Arial, Helvetica, sans-serif';return cv.measureText(t).width}
+  function rgb(h){return [1,3,5].map(function(i){return (parseInt(h.substr(i,2),16)/255).toFixed(3)}).join(' ')}
+  function newPage(){cur=[];pages.push(cur);y=M}
+  function T(t,x,yy,s,b,col){cur.push('BT /'+(b?'F2':'F1')+' '+s+' Tf '+rgb(col)+' rg '+x.toFixed(1)+' '+(H-yy).toFixed(1)+' Td ('+esc(t)+') Tj ET')}
+  function R(x,yy,w,h,col){cur.push(rgb(col)+' rg '+x.toFixed(1)+' '+(H-yy-h).toFixed(1)+' '+w.toFixed(1)+' '+h+' re f')}
+  function B(x,yy,w,h,col){cur.push(rgb(col)+' RG 2 w '+x+' '+(H-yy-h)+' '+w+' '+h+' re S')}
+  function wrap(t,s,b,mw){var out=[],line='';t.split(' ').forEach(function(w){var tr=line?line+' '+w:w;if(wid(tr,s,b)>mw&&line){out.push(line);line=w}else line=tr});if(line)out.push(line);return out}
+  function need(h){if(y+h>H-M)newPage()}
+  function para(t,s,b,col,x,mw,lh){wrap(t,s,b,mw).forEach(function(l){need(lh);T(l,x,y+s,s,b,col);y+=lh})}
+  newPage();
+  R(0,0,W,36,G);T('AscendFlow Solutions',M,23,12,true,'#ffffff');
+  y=62;T('The Spreadsheet Escape Checklist',M,y+22,22,true,INK);y+=40;
+  var nm=$('who').value.trim(),bz=$('biz').value.trim();
+  if(nm||bz){T([nm,bz].filter(Boolean).join(' - '),M,y+11,11,false,MUTE);y+=24}
+  var y0=y;B(M,y0,112,74,G);var ns=String(p);T(ns,M+(112-wid(ns,40,true))/2,y0+46,40,true,p<25?G:p<50?'#b87a0b':'#b3392b');
+  T('risk score out of 100',M+(112-wid('risk score out of 100',8.5,false))/2,y0+65,8.5,false,MUTE);
+  T(bd[0],M+132,y0+20,18,true,INK);y=y0+30;para(bd[1],10.5,false,MUTE,M+132,CW-132,15);
+  y=Math.max(y,y0+74)+22;
+  T('Where the risk sits',M,y+13,13,true,INK);y+=26;
+  SECTIONS.forEach(function(s,si){var m=0,g=0;items.forEach(function(i){if(i.sec===si){m+=i.w;if(i.on)g+=i.w}});var sp=Math.round(g/m*100);
+    T(s.n,M,y+9,10.5,false,INK);R(M+120,y,260,9,'#e3f0ea');if(sp)R(M+120,y,2.6*sp,9,'#b87a0b');T(sp+'%',M+392,y+9,10.5,false,INK);y+=20});
+  y+=14;T(sorted.length?'What to fix first':'What to fix',M,y+13,13,true,INK);y+=26;
+  if(!sorted.length)para('Nothing ticked. No spreadsheet risks flagged.',10.5,false,MUTE,M,CW,15);
+  sorted.forEach(function(i,k){
+    if(k===3){y+=4;need(40);T('Then tackle',M,y+13,13,true,INK);y+=26}
+    var a=wrap((k<3?'Priority: ':'')+i.t,11,true,CW-16),f=wrap(i.f,10,false,CW-16),h=a.length*15+f.length*13.5+6;
+    need(h+10);R(M,y,3,h,k<3?'#b3392b':'#b87a0b');
+    var ty=y;a.forEach(function(l){T(l,M+14,ty+11,11,true,INK);ty+=15});f.forEach(function(l){T(l,M+14,ty+10,10,false,MUTE);ty+=13.5});y+=h+10});
+  y+=10;need(70);R(M,y,CW,1,'#d3ddd7');y+=14;
+  para('Want a deeper look? This checklist shows where the risks are. For a more in-depth analysis of your spreadsheets and what to move first, WhatsApp us and we will go through it with you.',10.5,false,INK,M,CW,15);
+  if(WA_NUMBER){y+=4;T('WhatsApp: +'+WA_NUMBER.replace(/\D/g,''),M,y+11,11,true,G);y+=18}
+  var objs=[],n=pages.length,kids=[];
+  for(var i=0;i<n;i++)kids.push((5+2*i)+' 0 R');
+  objs[1]='<< /Type /Catalog /Pages 2 0 R >>';
+  objs[2]='<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+n+' >>';
+  objs[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+  objs[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+  pages.forEach(function(pg,i){var c=pg.join('\n');
+    objs[5+2*i]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+W+' '+H+'] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+(6+2*i)+' 0 R >>';
+    objs[6+2*i]='<< /Length '+c.length+' >>\nstream\n'+c+'\nendstream'});
+  var out='%PDF-1.4\n',offs=[];
+  for(var k=1;k<objs.length;k++){offs[k]=out.length;out+=k+' 0 obj\n'+objs[k]+'\nendobj\n'}
+  var xr=out.length;out+='xref\n0 '+objs.length+'\n0000000000 65535 f \n';
+  for(k=1;k<objs.length;k++)out+=('0000000000'+offs[k]).slice(-10)+' 00000 n \n';
+  out+='trailer\n<< /Size '+objs.length+' /Root 1 0 R >>\nstartxref\n'+xr+'\n%%EOF';
+  var bytes=new Uint8Array(out.length);for(k=0;k<out.length;k++)bytes[k]=out.charCodeAt(k)&255;
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
+  a.download='Spreadsheet-Escape-Checklist'+(bz?'-'+bz.replace(/[^A-Za-z0-9]+/g,'-'):'')+'.pdf';
+  document.body.appendChild(a);a.click();a.remove();
+}
+$('pdf').addEventListener('click',function(){try{makePDF()}catch(e){window.print()}});
+calc();
+</script>
+</body>
+</html>
